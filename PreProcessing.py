@@ -25,8 +25,8 @@ plt.title("Correlation of Numeric Features with Target")
 plt.show()
 
 plt.figure(figsize=(10,8))
-sns.boxplot(data=df_raw, x='Sale Condition', y='SalePrice')
-plt.title("Saleprice and House style")
+sns.boxplot(data=df_raw, x='Overall Qual', y='SalePrice')
+plt.title("Saleprice and Quality")
 plt.show()
 
 plt.figure(figsize=(10,8))
@@ -45,7 +45,7 @@ print(df_raw['Price split'].value_counts().sort_index())
 
 plt.figure(figsize=(10,8))
 sns.boxplot(data=df_raw, x='Price split',y='SalePrice')
-plt.title("Saleprice and House style")
+plt.title("Saleprice Bins distriution")
 plt.show()
 
 
@@ -140,7 +140,7 @@ print(f"Linear Regression R^2: {r2:.3f}")# Log-transform target
 
 poly_pipeline = Pipeline([
     ('preprocess', preprocess),
-    ('poly', PolynomialFeatures(degree=3, include_bias=False)),
+    ('poly', PolynomialFeatures(degree=2, include_bias=False)),
     ('model', LinearRegression())
 ])
 

@@ -13,10 +13,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
 
-datapath = "C:/Users/Andre/Documents/Skole/MaskinLæring/Assignments/Assignment 1/Data/AmesHousing.csv"
+datapath = "Data/AmesHousing.csv"
 
 df_raw = pd.read_csv(datapath)
 
+df_raw.drop(columns=["PID","Order"], inplace=True)
 corr = df_raw.corr(numeric_only=True)['SalePrice'].sort_values()
 plt.figure(figsize=(10,8))
 sns.barplot(x=corr.values, y=corr.index)
@@ -81,7 +82,7 @@ y_test = strat_test_set['SalePrice'].copy()
 # 1️⃣ Select numeric + strong categorical features
 # --------------------------
 # Example strong categorical features (you can adjust)
-strong_cat_cols = ['Neighborhood', 'HouseStyle', 'ExterQual', 'KitchenQual', 'BsmtQual']
+strong_cat_cols = ['Neighborhood', 'Alley', 'ExterQual', 'Foundation', 'Mas Vnr Type']
 numeric_cols = X_train.select_dtypes(include=[np.number]).columns.tolist()
 numeric_cols = [c for c in numeric_cols if c != 'SalePrice']  # drop target if present
 
@@ -139,7 +140,7 @@ print(f"Linear Regression R^2: {r2:.3f}")# Log-transform target
 
 poly_pipeline = Pipeline([
     ('preprocess', preprocess),
-    ('poly', PolynomialFeatures(degree=2, include_bias=False)),
+    ('poly', PolynomialFeatures(degree=3, include_bias=False)),
     ('model', LinearRegression())
 ])
 
